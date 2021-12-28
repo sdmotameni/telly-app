@@ -1,21 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StatusBar } from "expo-status-bar";
+import { NavigationContainer } from "@react-navigation/native";
+
+import AuthContext from "./app/auth/AuthContext";
+import authStorage from "./app/auth/authStorage";
+
+import InfoContext from "./app/misc/InfoContext";
+import infoService from "./app/services/infoService.js";
+
+import AppNavigator from "./app/navigation/AppNavigator";
+import AuthNavigator from "./app/navigation/AuthNavigator";
 
 export default function App() {
+  const [token, setToken] = useState(null);
+  const [links, setLinks] = useState(null);
+
+  useEffect(() => {
+    restoreUser();
+    loadLinks();
+  }, []);
+
+  const restoreUser = async () => {
+    const userToken = await authStorage.getToken();
+    if (userToken) setToken(setToken);
+  };
+
+  const loadLinks = async () => {
+    const response = await infoService.getLinks();
+    if (!response.ok) return;
+
+    setLinks(response.data);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider value={{ token, setToken }}>
+      <InfoContext.Provider value={{ links }}>
+        <StatusBar style="dark" />
+        <NavigationContainer>
+          {token ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </InfoContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// TODO: Activate feature and add ReActivate feature to the settings screen
+// TODO: Add store branding to login page
