@@ -23,9 +23,7 @@ export default function OnboardingScreen({ setIsNew }) {
     const response2 = await userService.getMe();
     if (!response2.ok) return;
 
-    handleNfc(response2.data.profileId, async (status) => {
-      console.log("onboarding screen nfc status: ", status);
-
+    handleNfc(response2.data.profileId, async () => {
       await userService.setIsNew();
       setIsNew(false);
     });

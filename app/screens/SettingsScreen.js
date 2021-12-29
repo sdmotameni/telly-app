@@ -93,9 +93,7 @@ export default function SettingsScreen({ navigation }) {
     const response = await userService.getMe();
     if (!response.ok) alert("Something went wrong. Try again.");
 
-    handleNfc(response.data.profileId, (status) => {
-      console.log("settings screen nfc status: ", status);
-    });
+    handleNfc(response.data.profileId, null);
   };
 
   return (
