@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -7,26 +7,32 @@ import userService from "../services/userService.js";
 import ProfileNavigator from "../navigation/ProfileNavigator";
 import SettingsScreen from "../screens/SettingsScreen";
 import AdminNavigator from "./AdminNavigator";
+import OnboardingScreen from "../screens/OnboardingScreen";
 
 const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isNew, setIsNew] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getAdminStatus();
+    getDetails();
   }, []);
 
-  const getAdminStatus = async () => {
+  const getDetails = async () => {
     const response = await userService.getMe();
     if (!response.ok) return;
 
     setIsAdmin(response.data.isAdmin);
+    setIsNew(response.data.isNewAccount);
+
     setIsLoading(false);
   };
 
   if (isLoading) return null;
+
+  if (isNew) return <OnboardingScreen setIsNew={setIsNew} />;
 
   return (
     <Tab.Navigator>

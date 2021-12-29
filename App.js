@@ -22,7 +22,7 @@ export default function App() {
 
   const restoreUser = async () => {
     const userToken = await authStorage.getToken();
-    if (userToken) setToken(setToken);
+    if (userToken) setToken(userToken);
   };
 
   const loadLinks = async () => {

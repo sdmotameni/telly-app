@@ -5,8 +5,6 @@ import colors from "../config/colors";
 import userService from "../services/userService";
 import handleAlert from "../utils/handleAlert";
 
-import InfoContext from "../misc/InfoContext";
-
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TopBar from "../components/TopBar";
@@ -16,8 +14,6 @@ import AppText from "../components/AppText";
 export default function ProfileScreen({ navigation }) {
   const [user, setUser] = useState({});
   const [myLinks, setMyLinks] = useState({});
-
-  const { links } = useContext(InfoContext);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -43,7 +39,8 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const biolerplateUser = {
-    image: "https://i.pravatar.cc/300?img=7",
+    image:
+      "https://res.cloudinary.com/dyusynvjw/image/upload/v1618083102/avatar.png",
     name: "Your Name",
     bio: "Your Bio",
     website: "example.com",
@@ -61,6 +58,11 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.push("EditLinks", myLinks)}
         style={styles.editLinksBtn}
       />
+      {!myLinks && (
+        <AppText style={styles.noLinksText}>
+          Once you add some links to your profile, they will appear here.
+        </AppText>
+      )}
       {myLinks && Object.keys(myLinks).length === 0 ? (
         <AppText style={styles.noLinksText}>
           Once you add some links to your profile, they will appear here.

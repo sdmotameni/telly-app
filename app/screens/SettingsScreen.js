@@ -7,6 +7,7 @@ import colors from "../config/colors";
 import useAuth from "../auth/useAuth";
 import userService from "../services/userService";
 import handleAlert from "../utils/handleAlert";
+import handleNfc from "../utils/handleNfc";
 
 import {
   AppForm,
@@ -88,6 +89,15 @@ export default function SettingsScreen({ navigation }) {
     setInitialValues({ name: data.name, bio: data.bio, website: data.website });
   };
 
+  const handleTellyActivation = async () => {
+    const response = await userService.getMe();
+    if (!response.ok) alert("Something went wrong. Try again.");
+
+    handleNfc(response.data.profileId, (status) => {
+      console.log("settings screen nfc status: ", status);
+    });
+  };
+
   return (
     <Screen style={styles.container}>
       <ScrollView>
@@ -142,6 +152,11 @@ export default function SettingsScreen({ navigation }) {
           <AppSubmitButton title="Save Changes" style={styles.submitButton} />
         </AppForm>
         <AppButton
+          style={styles.activateButton}
+          title="Click here to re-activate your Telly"
+          onPress={handleTellyActivation}
+        />
+        <AppButton
           style={styles.logoutButton}
           title="Logout"
           onPress={auth.logout}
@@ -169,6 +184,10 @@ const styles = StyleSheet.create({
     marginTop: 80,
     width: "100%",
     backgroundColor: colors.danger,
+  },
+  activateButton: {
+    backgroundColor: "#50C878",
+    marginTop: 15,
   },
   imageContainer: {
     flexDirection: "row",

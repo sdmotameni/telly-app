@@ -6,6 +6,10 @@ function getMe() {
   return httpService.get(apiEndpoint + "me");
 }
 
+function setIsNew() {
+  return httpService.post(apiEndpoint + "setisnew");
+}
+
 function updateSettings(data) {
   return httpService.post(apiEndpoint + "settings", data);
 }
@@ -22,4 +26,10 @@ function uploadProfilePicture(formData, cb) {
   });
 }
 
-export default { getMe, updateSettings, updateLinks, uploadProfilePicture };
+export default {
+  getMe,
+  updateSettings,
+  updateLinks,
+  uploadProfilePicture,
+  setIsNew,
+};

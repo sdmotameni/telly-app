@@ -44,11 +44,18 @@ export default function AdminScreen({ navigation }) {
   };
 
   const contains = ({ name, phone }, query) => {
-    const formattedName = name.toLowerCase();
-
-    if (formattedName.includes(query) || phone.includes(query)) {
-      return true;
+    if (name) {
+      const formattedName = name.toLowerCase();
+      if (formattedName.includes(query) || phone.includes(query)) {
+        return true;
+      }
+    } else {
+      const formattedName = "null";
+      if (formattedName.includes(query) || phone.includes(query)) {
+        return true;
+      }
     }
+
     return false;
   };
 
