@@ -26,33 +26,31 @@ export default function LoginScreen({ navigation }) {
     const token = response.headers["token-to-match"];
     if (!token) return setError("No token found. Try again.");
 
-    navigation.push("LoginCodeScreen", { token });
+    navigation.push("LoginCodeScreen", { token, phone });
   };
 
   return (
-    <ScrollView style={styles.scrollView}>
+    <Screen style={styles.container}>
       <Image style={styles.image} source={require("../assets/logo-full.png")} />
       <AppText style={styles.headlineText}>Get Started</AppText>
-      <Screen style={styles.container}>
-        <AppForm
-          initialValues={{ phone: "" }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <AppErrorMessage message={error} visible={error} />
-          <AppFormField
-            name="phone"
-            icon="phone"
-            placeholder="Phone Number"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="phone-pad"
-            textContentType="telephoneNumber"
-          />
-          <AppSubmitButton style={styles.submitButton} title="Login" />
-        </AppForm>
-      </Screen>
-    </ScrollView>
+      <AppForm
+        initialValues={{ phone: "" }}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        <AppErrorMessage message={error} visible={error} />
+        <AppFormField
+          name="phone"
+          icon="phone"
+          placeholder="Phone Number"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="phone-pad"
+          textContentType="telephoneNumber"
+        />
+        <AppSubmitButton style={styles.submitButton} title="Login" />
+      </AppForm>
+    </Screen>
   );
 }
 
@@ -63,16 +61,10 @@ const validationSchema = Yup.object().shape({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    padding: 20,
-    marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
-  },
-  headlineText: {
-    fontSize: 24,
-    textAlign: "center",
-    fontWeight: "600",
+    width: "100%",
+    padding: 20,
   },
   image: {
     width: 150,
@@ -80,11 +72,12 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
   },
-  submitButton: {
-    width: "60%",
+  headlineText: {
+    fontSize: 32,
+    fontWeight: "700",
   },
-  scrollView: {
-    width: "100%",
-    height: "100%",
+  submitButton: {
+    marginTop: 10,
+    width: "80%",
   },
 });

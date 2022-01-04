@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, View } from "react-native";
 
 import colors from "../config/colors";
 import adminService from "../services/adminService";
@@ -41,10 +41,28 @@ export default function AdminProfileScreen({ route, navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <AppText>Date Created: {item.dateCreated}</AppText>
-      <AppText>Profile ID: {item.profileId}</AppText>
-      <AppText>Registered Phone: {item.phone}</AppText>
-      <AppText>is Admin: {item.isAdmin ? "YES" : "NO"}</AppText>
+      <View>
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>Date Created</AppText>
+          <AppText style={styles.valueText}>{item.dateCreated}</AppText>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>Profile ID</AppText>
+          <AppText style={styles.valueText}>{item.profileId}</AppText>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>Phone</AppText>
+          <AppText style={styles.valueText}>{item.phone}</AppText>
+        </View>
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>is Admin</AppText>
+          <AppText style={styles.valueText}>
+            {item.isAdmin ? "YES" : "NO"}
+          </AppText>
+        </View>
+      </View>
       <AppButton
         title="Delete Profile"
         style={styles.deleteButton}
@@ -60,6 +78,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
   },
+  itemContainer: {},
+  keyText: {
+    fontSize: 18,
+    fontWeight: "500",
+  },
+  valueText: {},
   profileImage: {
     width: 150,
     height: 150,
@@ -67,6 +91,6 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: colors.danger,
-    marginBottom: 10,
+    marginVertical: 10,
   },
 });

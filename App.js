@@ -43,6 +43,3 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
-
-// TODO: Activate feature and add ReActivate feature to the settings screen
-// TODO: Add store branding to login page

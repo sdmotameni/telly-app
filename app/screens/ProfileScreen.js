@@ -8,6 +8,7 @@ import handleAlert from "../utils/handleAlert";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TopBar from "../components/TopBar";
+import WebsiteBar from "../components/WebsiteBar";
 import Links from "../components/Links";
 import AppText from "../components/AppText";
 
@@ -58,6 +59,7 @@ export default function ProfileScreen({ navigation }) {
         onPress={() => navigation.push("EditLinks", myLinks)}
         style={styles.editLinksBtn}
       />
+      {user.website && <WebsiteBar website={user.website} />}
       {!myLinks && (
         <AppText style={styles.noLinksText}>
           Once you add some links to your profile, they will appear here.

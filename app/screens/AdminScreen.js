@@ -13,7 +13,6 @@ import colors from "../config/colors";
 import handleAlert from "../utils/handleAlert";
 import adminService from "../services/adminService";
 
-import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 
 export default function AdminScreen({ navigation }) {
@@ -61,7 +60,7 @@ export default function AdminScreen({ navigation }) {
 
   const renderHeader = () => {
     return (
-      <View style={styles.searchInputContainer}>
+      <View style={styles.searchContainer}>
         <TextInput
           autoCapitalize="none"
           clearButtonMode="always"
@@ -75,42 +74,32 @@ export default function AdminScreen({ navigation }) {
     );
   };
 
-  const renderSeparator = () => {
-    return <View style={styles.separator} />;
-  };
-
   const renderItem = ({ item }) => {
     return (
-      <>
-        <TouchableWithoutFeedback
-          onPress={() => navigation.push("AdminProfileScreen", item)}
-        >
-          <View style={styles.itemContainer}>
-            <Image
-              style={styles.profileImage}
-              source={{ uri: item.photoUrl }}
-            />
-            <View>
-              <AppText style={styles.nameText}>{item.name}</AppText>
-              <AppText style={styles.phoneText}>{item.phone}</AppText>
-            </View>
+      <TouchableWithoutFeedback
+        onPress={() => navigation.push("AdminProfileScreen", item)}
+      >
+        <View style={styles.itemContainer}>
+          <Image style={styles.profileImage} source={{ uri: item.photoUrl }} />
+          <View>
+            <AppText style={styles.nameText}>{item.name}</AppText>
+            <AppText style={styles.phoneText}>{item.phone}</AppText>
           </View>
-        </TouchableWithoutFeedback>
-      </>
+        </View>
+      </TouchableWithoutFeedback>
     );
   };
 
   return (
-    <Screen style={styles.container}>
-      <AppText>Total Users: {users.length}</AppText>
+    <View style={styles.container}>
+      <AppText style={styles.usersLabel}>Total Users: {users.length}63</AppText>
       {renderHeader()}
       <FlatList
         data={users}
         renderItem={renderItem}
         keyExtractor={(item) => item.profileId}
-        ItemSeparatorComponent={renderSeparator}
       />
-    </Screen>
+    </View>
   );
 }
 
@@ -119,11 +108,17 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 8,
     paddingVertical: 5,
+    backgroundColor: colors.white,
   },
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
+  },
+  usersLabel: {
+    fontSize: 19,
+    fontWeight: "500",
+    marginBottom: 10,
   },
   profileImage: {
     width: 65,
@@ -132,24 +127,20 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   nameText: {
-    fontSize: 17,
+    fontSize: 18,
+    fontWeight: "500",
   },
   phoneText: {
-    fontSize: 14,
+    fontSize: 15,
+    marginTop: 2,
     color: colors.medium,
   },
-  separator: {
-    height: 1,
-    width: "86%",
-    backgroundColor: "#CED0CE",
-    marginLeft: "5%",
-  },
-  searchInputContainer: {
-    backgroundColor: "#fff",
+  searchContainer: {
     padding: 10,
     justifyContent: "center",
-    borderRadius: 25,
-    borderColor: "#333",
+    borderRadius: 10,
+    borderColor: colors.medium,
     borderWidth: 0.2,
+    marginBottom: 10,
   },
 });

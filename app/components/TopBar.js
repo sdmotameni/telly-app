@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Linking,
-} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 
 import colors from "../config/colors";
 
@@ -25,20 +19,6 @@ export default function TopBar({ content }) {
           <AppText style={styles.bio}>{content.bio}</AppText>
         </View>
       </View>
-      {content.website && (
-        <TouchableWithoutFeedback
-          onPress={() => Linking.openURL("https://" + content.website)}
-        >
-          <View style={styles.websiteContainer}>
-            <Image
-              source={require("../assets/website.png")}
-              style={styles.websiteImg}
-              tint="light"
-            />
-            <AppText style={styles.website}>{content.website}</AppText>
-          </View>
-        </TouchableWithoutFeedback>
-      )}
     </View>
   );
 }
@@ -71,17 +51,5 @@ const styles = StyleSheet.create({
   bio: {
     fontSize: 15,
     marginBottom: 9,
-  },
-  websiteContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  website: {
-    fontSize: 14,
-  },
-  websiteImg: {
-    height: 15,
-    width: 15,
-    marginRight: 7,
   },
 });

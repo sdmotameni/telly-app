@@ -29,8 +29,10 @@ export default function AppTextInput({ icon, imageUri, style, ...rest }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light,
-    borderRadius: 25,
+    backgroundColor: colors.white,
+    borderColor: colors.light,
+    borderWidth: 1.5,
+    borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
     width: "100%",

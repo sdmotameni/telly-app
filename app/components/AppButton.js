@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
-    padding: 5,
+    padding: 10,
     borderRadius: 10,
   },
   text: {
     color: colors.white,
-    fontWeight: "800",
+    fontWeight: "500",
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
+import { StyleSheet, View, Keyboard } from "react-native";
 import * as Yup from "yup";
 import "yup-phone";
 
@@ -98,68 +98,63 @@ export default function SettingsScreen({ navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <ScrollView>
-        <AppForm
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          enableReinitialize={true}
-        >
-          <View style={styles.imageContainer}>
-            <ImagePicker
-              imageUri={photo}
-              handleImageChange={handleImageChange}
-            />
+      <AppForm
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+        enableReinitialize={true}
+      >
+        <View style={styles.imageContainer}>
+          <ImagePicker imageUri={photo} handleImageChange={handleImageChange} />
 
-            {uploadProgress && (
-              <AppText style={styles.uploadProgressText}>
-                Uploading image: {uploadProgress}%
-              </AppText>
-            )}
-          </View>
-          <AppErrorMessage message={error} visible={error} />
-          <AppText style={styles.label}>Name</AppText>
-          <AppFormField
-            name="name"
-            icon="account"
-            placeholder="Name"
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="default"
-            textContentType="name"
-          />
-          <AppText style={styles.label}>Bio</AppText>
-          <AppFormField
-            name="bio"
-            icon="format-align-justify"
-            placeholder="Bio"
-            autoCapitalize="none"
-            keyboardType="default"
-            textContentType="none"
-          />
-          <AppText style={styles.label}>Website</AppText>
-          <AppFormField
-            name="website"
-            icon="link"
-            placeholder="Website URL"
-            autoCapitalize="none"
-            keyboardType="default"
-            textContentType="none"
-            autoCorrect={false}
-          />
-          <AppSubmitButton title="Save Changes" style={styles.submitButton} />
-        </AppForm>
-        <AppButton
-          style={styles.activateButton}
-          title="Click here to re-activate your Telly"
-          onPress={handleTellyActivation}
+          {uploadProgress && (
+            <AppText style={styles.uploadProgressText}>
+              Uploading image: {uploadProgress}%
+            </AppText>
+          )}
+        </View>
+        <AppErrorMessage message={error} visible={error} />
+        <AppText style={styles.label}>Name</AppText>
+        <AppFormField
+          name="name"
+          icon="account"
+          placeholder="Name"
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="default"
+          textContentType="name"
         />
-        <AppButton
-          style={styles.logoutButton}
-          title="Logout"
-          onPress={auth.logout}
+        <AppText style={styles.label}>Bio</AppText>
+        <AppFormField
+          name="bio"
+          icon="format-align-justify"
+          placeholder="Bio"
+          autoCapitalize="none"
+          keyboardType="default"
+          textContentType="none"
         />
-      </ScrollView>
+        <AppText style={styles.label}>Website</AppText>
+        <AppFormField
+          name="website"
+          icon="link"
+          placeholder="Website URL"
+          autoCapitalize="none"
+          keyboardType="default"
+          textContentType="none"
+          autoCorrect={false}
+        />
+        <AppSubmitButton title="Save Changes" style={styles.submitButton} />
+      </AppForm>
+      <AppButton
+        style={styles.activateButton}
+        title="Activate Telly"
+        onPress={handleTellyActivation}
+      />
+      <AppButton
+        style={styles.logoutButton}
+        title="Logout"
+        onPress={auth.logout}
+      />
     </Screen>
   );
 }

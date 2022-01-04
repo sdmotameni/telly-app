@@ -8,7 +8,7 @@ import Link from "./Link";
 export default function Links({ content }) {
   return (
     <ScrollView
-      contentInset={{ top: 0, left: 0, right: 0, bottom: 200 }}
+      contentInset={{ top: 0, left: 0, right: 0, bottom: 300 }}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.container}>

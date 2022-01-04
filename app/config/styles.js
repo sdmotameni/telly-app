@@ -5,7 +5,7 @@ import colors from "./colors";
 export default {
   text: {
     fontSize: 18,
-    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "Roboto",
+    fontFamily: Platform.OS === "ios" ? "Helvetica" : "Roboto",
     color: colors.black,
   },
 };
