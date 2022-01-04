@@ -193,5 +193,5 @@ const styles = StyleSheet.create({
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().max(20).label("Name"),
-  bio: Yup.string().max(20).label("Bio"),
+  bio: Yup.string().max(40).label("Bio"),
 });
