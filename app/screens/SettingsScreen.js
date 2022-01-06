@@ -132,6 +132,8 @@ export default function SettingsScreen({ navigation }) {
           autoCapitalize="none"
           keyboardType="default"
           textContentType="none"
+          multiline
+          numberOfLines={3}
         />
         <AppText style={styles.label}>Website</AppText>
         <AppFormField

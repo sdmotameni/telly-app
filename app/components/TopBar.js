@@ -51,5 +51,6 @@ const styles = StyleSheet.create({
   bio: {
     fontSize: 15,
     marginBottom: 9,
+    textAlign: "center",
   },
 });

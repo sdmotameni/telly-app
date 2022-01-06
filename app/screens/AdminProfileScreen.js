@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Alert, View } from "react-native";
+import { StyleSheet, Alert, View, Linking } from "react-native";
 
 import colors from "../config/colors";
 import adminService from "../services/adminService";
@@ -56,17 +56,35 @@ export default function AdminProfileScreen({ route, navigation }) {
           <AppText style={styles.keyText}>Phone</AppText>
           <AppText style={styles.valueText}>{item.phone}</AppText>
         </View>
+
         <View style={styles.itemContainer}>
           <AppText style={styles.keyText}>is Admin</AppText>
           <AppText style={styles.valueText}>
             {item.isAdmin ? "YES" : "NO"}
           </AppText>
         </View>
+
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>Taps</AppText>
+          <AppText style={styles.valueText}>{item.taps}</AppText>
+        </View>
+
+        <View style={styles.itemContainer}>
+          <AppText style={styles.keyText}>Last Tapped</AppText>
+          <AppText style={styles.valueText}>{item.lastTapped}</AppText>
+        </View>
       </View>
       <AppButton
         title="Delete Profile"
         style={styles.deleteButton}
         onPress={handleDelete}
+      />
+      <AppButton
+        title="View Profile"
+        style={styles.viewProfileButton}
+        onPress={() =>
+          Linking.openURL("https://app.gettelly.com/" + item.profileId)
+        }
       />
       <TopBar content={item} />
       <Links content={item.links} />
@@ -77,6 +95,7 @@ export default function AdminProfileScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    backgroundColor: colors.light,
   },
   itemContainer: {},
   keyText: {
@@ -92,5 +111,9 @@ const styles = StyleSheet.create({
   deleteButton: {
     backgroundColor: colors.danger,
     marginVertical: 10,
+  },
+  viewProfileButton: {
+    backgroundColor: "#7ecdfa",
+    marginBottom: 10,
   },
 });
