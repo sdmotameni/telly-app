@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, KeyboardAvoidingView } from "react-native";
 
 import colors from "../config/colors";
 import userService from "../services/userService";
@@ -27,7 +27,9 @@ export default function EditLinksScreen({ route, navigation }) {
   const handleSubmit = async (obj) => {
     Object.keys(obj).forEach((key) => {
       obj[key] = obj[key].trim();
-      obj[key] = obj[key].replace("@", "");
+      if (key !== "email") {
+        obj[key] = obj[key].replace("@", "");
+      }
       obj[key] = obj[key].replace("#", "");
       obj[key] = obj[key].replace("$", "");
     });
@@ -40,34 +42,39 @@ export default function EditLinksScreen({ route, navigation }) {
 
   return (
     <Screen style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <AppText style={styles.headerText}>Edit Social Links</AppText>
-        <AppText style={styles.subHeaderText}>
-          Please enter your usernames only. No urls.
-        </AppText>
-        {initialValues && (
-          <AppForm
-            initialValues={initialValues}
-            validationSchema={null}
-            onSubmit={handleSubmit}
-            enableReinitialize
-          >
-            {Object.keys(links).map((key) => (
-              <AppFormField
-                key={key}
-                name={key.toString()}
-                imageUri={links[key].image}
-                placeholder={links[key].title}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="default"
-                textContentType="none"
-              />
-            ))}
-            <AppSubmitButton style={styles.submitButton} title="Save Links" />
-          </AppForm>
-        )}
-      </ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <AppText style={styles.headerText}>Edit Social Links</AppText>
+          <AppText style={styles.subHeaderText}>
+            Please enter your usernames only. No urls.
+          </AppText>
+          {initialValues && (
+            <AppForm
+              initialValues={initialValues}
+              validationSchema={null}
+              onSubmit={handleSubmit}
+              enableReinitialize
+            >
+              {Object.keys(links).map((key) => (
+                <AppFormField
+                  key={key}
+                  name={key.toString()}
+                  imageUri={links[key].image}
+                  placeholder={links[key].title}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="default"
+                  textContentType="none"
+                />
+              ))}
+              <AppSubmitButton style={styles.submitButton} title="Save Links" />
+            </AppForm>
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Screen>
   );
 }
@@ -75,8 +82,8 @@ export default function EditLinksScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    padding: 15,
     flex: 1,
+    padding: 12,
   },
   submitButton: {
     marginTop: 10,

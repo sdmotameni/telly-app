@@ -92,7 +92,7 @@ export default function AdminScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.usersLabel}>Total Users: {users.length}63</AppText>
+      <AppText style={styles.usersLabel}>Total Users: {users.length}</AppText>
       {renderHeader()}
       <FlatList
         data={users}
